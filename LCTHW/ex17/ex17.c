@@ -10,7 +10,7 @@
 struct Address{
 	int id;
 	int set;
-	char name[MAX_DATA]
+	char name[MAX_DATA];
 	char email[MAX_DATA];
 };
 
@@ -34,7 +34,8 @@ void die(const char *message){
 }
 
 void Address_print(struct Address *addr){
-	printf("%d %s %s\n", addr->id, addr->name, addr->email);
+	printf("%d %s %s\n", 
+		addr->id, sizeof(addr->name),addr->name, sizeof(addr->email), addr->email);
 }
 
 void Database_load(struct Connection *conn){
@@ -86,7 +87,7 @@ void Database_write(struct Connection *conn){
 void Database_create(struct Connection *conn){
 	int i =0;
 	
-	for (i=0; i<MAX-ROWS; i++){
+	for (i=0; i<MAX_ROWS; i++){
 		//make a prototype to initiliaze it
 		struct Address addr={.id=i, .set=0};
 		//then assign
@@ -103,7 +104,7 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
 	//warning: bug, read the "how to break it"
 	char *res=strncpy(addr->name, name, MAX_DATA);
 	//demonstrate the strncpy bug
-	if(!res) die("Name copy failed);
+	if(!res) die("Name copy failed");
 	
 	res=strncpy(addr->email, email, MAX_DATA);
 	if(!res) die("Email copy failed");
@@ -138,7 +139,7 @@ void Database_list(struct Connection *conn){
 }
 
 int main(int argc, char *argv[]){
-	if(argc<3)die("USAGE: ex17 <dbfile> <action> [action params]")
+	if(argc<3)die("USAGE: ex17 <dbfile> <action> [action params]");
 	
 	char *filename=argv[1];
 	char action=argv[2][0];
@@ -161,7 +162,7 @@ int main(int argc, char *argv[]){
 			break;
 			
 		case 's':
-			if(args !=6)die("Need if, name, email to set");
+			if (argc !=6)die("Need if, name, email to set");
 			
 			Database_set(conn, id, argv[4], argv[5]);
 			Database_write(conn);
