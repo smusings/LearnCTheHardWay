@@ -17,7 +17,7 @@ typedef struct{
 int Object_init(void *self);
 void Object_destroy(void *self);
 void Object_describe(void *self);
-void *Object_move(coid *self, Direction direction);
+void *Object_move(void *self, Direction direction);
 int Object_attack(void *self, int damage);
 void *Object_new(size_t size, Object proto, char *description);
 
