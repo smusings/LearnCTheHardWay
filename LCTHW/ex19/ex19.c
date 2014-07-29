@@ -107,7 +107,7 @@ int Map_init(void *self){
 	Room *hall=NEW(Room, "The great Hall");
 	Room *throne=NEW(Room, "The Throne Room");
 	Room *arena=NEW(Room, "the arena with the minotaur");
-	Room *kitchen=NEW(Room, "You have a knife now.");
+	Room *kitchen=NEW(Room, "The Kitchen, you have a knife now.");
 	
 	//put the bad guy in the arena
 	arena->bad_guy=NEW(Monster, "The evil minotaur");
