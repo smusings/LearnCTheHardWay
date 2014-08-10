@@ -6,24 +6,35 @@
 #include "bstrlib.h"
 #include "dbg.h"
 
+//opens a database
 static FILE *DB_open(const char *path, const char *mode){
 	return fopen(path, mode);
 }
 
+//closes a database when done
 static void DB_close(FILE *db){
 	fclose(db);
 }
 
+
+//loads data into the Databae, if there is an error it will close the database
+//destroy the data and return NULL
 static bstring DB_load(){
+
+	//the file and the bstring are both empty
 	FILE *db=NULL;
 	bstring data=NULL;
 	
+	//opens the database
+	//checks the database for the file
 	db=DB_open(DB_FILE, "r");
 	check(db, "Failed to open database: %s", DB_FILE);
 	
+	//checks the data
 	data=bread((bNread)fread, db);
 	check(data, "Failed to read from db file: %s", DB_FILE);
 	
+	//closes the database
 	DB_close(db);
 	return data;
 error:
