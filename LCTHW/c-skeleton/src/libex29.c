@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "dbg.h"
+#include <assert.h>
 
 int print_a_message(const char *msg){
 	printf("A STRING: %s\n", msg);
@@ -20,8 +21,7 @@ int uppercase(const char *msg){
 	
 	return 0;
 }
-
-int lowecase(const char *msg){
+int lowercase(const char *msg){
 	int i=0;
 	
 	//BUG: \0 termination problems
